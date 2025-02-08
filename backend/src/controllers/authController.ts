@@ -1,22 +1,66 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client";
-
-// type CustomContext = Context<{ Variables: { prisma: PrismaClient } }>;
+import { genarateJwt } from "../utils/JWT_Tokens";
+import { EnvVariables } from "../types/envTypes";
+import { UserDBInput } from "../types/userTypes";
+import bcryptjs from "bcryptjs";
+import { hashPassword } from "../utils/passwordHashing";
+import sendResponse from "../utils/sendResponse";
+import { signUpSchema,loginSchema } from "../types/zodSchema";
 
 export const signup = async (c: Context) => {
-    const prisma = c.get("prisma") as PrismaClient;
+    try {
+        const prisma = c.get("prisma") as PrismaClient;
+        const envVariable = c.get("envVariable") as EnvVariables;
 
-    const body = await c.req.json();
+        const body = await c.req.json();
 
-    await prisma.user.create({
-        data: {
-            name: body.name,
-            email: body.email,
-            password: body.password
+        const parsedPayload = signUpSchema.safeParse(body);
+
+        if(!parsedPayload.success){
+            return sendResponse(c,400,false, JSON.stringify(parsedPayload.error.format()));
         }
-    })
+
+        const exitstingUser = await prisma.user.findUnique({
+            where: { email: body.email },
+        });
+
+        if (exitstingUser) {
+            return sendResponse(c,400,false, "User Email Already Exists");
+        }
+
+        const hashedPassword = await hashPassword(body.password);
+
+        const user: UserDBInput = await prisma.user.create({
+            data: {
+                name: body.name,
+                email: body.email,
+                password: hashedPassword,
+            },
+        });
+
+        const token = await genarateJwt(user.id, envVariable.JWT_SECRET);
+
+        return sendResponse(c, 201, true, "Signup Successfull", token);
+
+    } catch (error : any) {
+        return sendResponse(c,error.status ?? 500,false,error.message ?? "Internal Server Error");
+    }
 };
 
 export const login = async (c: Context) => {
-    //
+    const prisma = c.get("prisma") as PrismaClient;
+    const envVariable = c.get("envVariable") as EnvVariables;
+
+    const body = c.req.json();
+
+    const parsedPayload = loginSchema.safeParse(body);
+
+    if(!parsedPayload.success){
+        sendResponse(c,400,false,JSON.stringify(parsedPayload.error.format()));
+    }
+
+    const user = await prisma.user.findUnique
+
+
 };

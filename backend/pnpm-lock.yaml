@@ -14,13 +14,22 @@ importers:
       '@prisma/extension-accelerate':
         specifier: ^1.2.1
         version: 1.2.1(@prisma/client@6.3.1(prisma@6.3.1))
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
       hono:
         specifier: ^4.6.20
         version: 4.6.20
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250204.0
         version: 4.20250204.0
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
       prisma:
         specifier: ^6.3.1
         version: 6.3.1
@@ -260,6 +269,9 @@ packages:
   '@prisma/get-platform@6.3.1':
     resolution: {integrity: sha512-AYLq6Hk9xG73JdLWJ3Ip9Wg/vlP7xPvftGBalsPzKDOHr/ImhwJ09eS8xC2vNT12DlzGxhfk8BkL0ve2OriNhQ==}
 
+  '@types/bcryptjs@2.4.6':
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+
   acorn-walk@8.3.4:
     resolution: {integrity: sha512-ueEepnujpqee2o5aIYnvHU6C0A42MNdsIDeqy5BydrkuC5R1ZuUFnm27EeFJGoEHJQgn3uleRvmTXaJgfXbt4g==}
     engines: {node: '>=0.4.0'}
@@ -271,6 +283,9 @@ packages:
 
   as-table@1.0.55:
     resolution: {integrity: sha512-xvsWESUJn0JN421Xb9MQw6AsMHRCUknCe0Wjlxvjud80mU4E6hQf1A6NzQKcYNmYw62MfzEtXc+badstZP3JpQ==}
+
+  bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
   blake3-wasm@2.1.5:
     resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
@@ -578,6 +593,8 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.3.1
 
+  '@types/bcryptjs@2.4.6': {}
+
   acorn-walk@8.3.4:
     dependencies:
       acorn: 8.14.0
@@ -587,6 +604,8 @@ snapshots:
   as-table@1.0.55:
     dependencies:
       printable-characters: 1.0.42
+
+  bcryptjs@2.4.3: {}
 
   blake3-wasm@2.1.5: {}
 
