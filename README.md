@@ -1,6 +1,6 @@
 # Medium Blog Project
 
-This is a Medium Blog project built with TypeScript, Prisma, and Hono.
+This is a Medium Blog project built with TypeScript, Prisma, and Hono, deployed on Cloudflare Workers.
 
 ## Project Structure
 
@@ -29,6 +29,7 @@ medium-blog/
 - Node.js
 - pnpm
 - Prisma
+- Cloudflare Workers
 
 ## Getting Started
 
@@ -50,10 +51,25 @@ medium-blog/
     pnpm prisma migrate dev --name init
     ```
 
-4. **Start the backend server:**
+4. **Deploy to Cloudflare Workers:**
+
+    Ensure you have the Cloudflare Workers CLI (`wrangler`) installed. If not, install it using:
 
     ```sh
-    pnpm start
+    pnpm install -g wrangler
+    ```
+
+    Then, configure your Cloudflare Workers project by running:
+
+    ```sh
+    wrangler login
+    wrangler init
+    ```
+
+    Finally, deploy your project:
+
+    ```sh
+    wrangler publish
     ```
 
 ### Frontend
@@ -141,6 +157,7 @@ medium-blog/
 - **Framework:** Hono
 - **Database:** PostgreSQL
 - **ORM:** Prisma
+- **Deployment:** Cloudflare Workers
 
 ### Frontend
 
