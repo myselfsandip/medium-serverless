@@ -5,14 +5,14 @@ import { EnvVariables } from "../types/envTypes";
 import { UserDBInput } from "../types/userTypes";
 import { hashPassword, verifyHashedPassword } from "../utils/passwordHashing";
 import sendResponse from "../utils/sendResponse";
-import { signUpSchema, loginSchema } from "../types/zodSchema";
+import { signUpSchema, loginSchema, signUpInputs, loginInputs } from "../types/zodSchema";
 
 export const signup = async (c: Context) => {
     try {
         const prisma = c.get("prisma") as PrismaClient;
         const envVariable = c.get("envVariable") as EnvVariables;
 
-        const body = await c.req.json();
+        const body : signUpInputs = await c.req.json();
 
         const parsedPayload = signUpSchema.safeParse(body);
 
@@ -52,7 +52,7 @@ export const login = async (c: Context) => {
         const prisma = c.get("prisma") as PrismaClient;
         const envVariable = c.get("envVariable") as EnvVariables;
 
-        const body = await c.req.json();
+        const body : loginInputs = await c.req.json();
 
         const parsedPayload = loginSchema.safeParse(body);
 

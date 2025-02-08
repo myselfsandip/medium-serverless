@@ -4,7 +4,7 @@ import { createBlog, getBlogs, updateBlog } from "../controllers/blogControllers
 const router = new Hono();
 
 router.post('/', createBlog);
-router.put('/', updateBlog);
+router.put('/:id', updateBlog);
 router.get('/:id', getBlogs);
 
 
