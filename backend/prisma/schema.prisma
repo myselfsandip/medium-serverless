@@ -29,6 +29,6 @@ model Post{
   title    String
   content   String
   published   String
-  aurthor   User    @relation(fields: [authorId],references: [id])
+  author   User    @relation(fields: [authorId],references: [id])
   authorId   String
 }

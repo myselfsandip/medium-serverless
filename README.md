@@ -1,0 +1,160 @@
+# Medium Blog Project
+
+This is a Medium Blog project built with TypeScript, Prisma, and Hono.
+
+## Project Structure
+
+```
+medium-blog/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   └── blogControllers.ts
+│   │   ├── types/
+│   │   │   ├── blogTypes.ts
+│   │   │   ├── envTypes.ts
+│   │   │   └── zodSchema.ts
+│   │   ├── utils/
+│   │   │   └── sendResponse.ts
+│   │   └── index.ts
+│   └── prisma/
+│       └── schema.prisma
+├── frontend/
+│   └── ...
+└── README.md
+```
+
+## Prerequisites
+
+- Node.js
+- pnpm
+- Prisma
+
+## Getting Started
+
+### Backend
+
+1. **Install dependencies:**
+
+    ```sh
+    pnpm install
+    ```
+
+2. **Set up the database:**
+
+    Make sure you have a PostgreSQL database running and update the `DATABASE_URL` in your `.env` file.
+
+3. **Run Prisma migrations:**
+
+    ```sh
+    pnpm prisma migrate dev --name init
+    ```
+
+4. **Start the backend server:**
+
+    ```sh
+    pnpm start
+    ```
+
+### Frontend
+
+1. **Navigate to the frontend directory:**
+
+    ```sh
+    cd frontend
+    ```
+
+2. **Install dependencies:**
+
+    ```sh
+    pnpm install
+    ```
+
+3. **Start the frontend server:**
+
+    ```sh
+    pnpm start
+    ```
+
+## API Endpoints
+
+### Create Blog
+
+- **URL:** `/api/blogs`
+- **Method:** `POST`
+- **Request Body:**
+
+    ```json
+    {
+        "title": "Blog Title",
+        "content": "Blog Content",
+        "published": true
+    }
+    ```
+
+- **Response:**
+
+    ```json
+    {
+        "success": true,
+        "data": {
+            "id": 1,
+            "title": "Blog Title",
+            "content": "Blog Content",
+            "published": true,
+            "authorId": 1
+        }
+    }
+    ```
+
+### Update Blog
+
+- **URL:** `/api/blogs/:id`
+- **Method:** `PUT`
+- **Request Body:** (similar to create)
+
+### Get Blogs
+
+- **URL:** `/api/blogs`
+- **Method:** `GET`
+- **Response:**
+
+    ```json
+    {
+        "success": true,
+        "data": [
+            {
+                "id": 1,
+                "title": "Blog Title",
+                "content": "Blog Content",
+                "published": true,
+                "authorId": 1
+            }
+        ]
+    }
+    ```
+
+## Project Details
+
+### Backend
+
+- **Framework:** Hono
+- **Database:** PostgreSQL
+- **ORM:** Prisma
+
+### Frontend
+
+- **Framework:** (Specify your frontend framework here)
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License.
