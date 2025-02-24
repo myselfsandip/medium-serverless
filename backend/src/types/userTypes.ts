@@ -1,6 +1,6 @@
 
 export interface UserDBInput {
-    id: string,
+    id: number,
     name: string;
     email: string;
     password: string;

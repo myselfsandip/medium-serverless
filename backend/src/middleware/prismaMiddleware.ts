@@ -4,7 +4,7 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 import { env } from 'hono/adapter';
 import { EnvVariables } from '../types/envTypes';
 
-
+let prisma: PrismaClient | null = null;
 
 const prismaMiddleware: MiddlewareHandler = async (c, next) => {
     const envVariable = env<EnvVariables>(c);
@@ -12,15 +12,26 @@ const prismaMiddleware: MiddlewareHandler = async (c, next) => {
         return c.json({ error: 'DATABASE_URL is not defined' }, 500);
     }
 
-    // Initialize Prisma with the database URL from environment variables
-    const prisma = new PrismaClient({
-        datasourceUrl: envVariable.DATABASE_URL
-    }).$extends(withAccelerate());
+    // Initialize Prisma only once and reuse the instance
+    if (!prisma) {
+        try {
+            const basePrisma = new PrismaClient({
+                datasources: {
+                    db: {
+                        url: envVariable.DATABASE_URL
+                    }
+                }
+            });
+            prisma = basePrisma.$extends(withAccelerate()) as unknown as PrismaClient;
+        } catch (error: any) {
+            return c.json({ error: `Error initializing Prisma client: ${error.message}` }, 500);
+        }
+    }
 
-    c.set('prisma', prisma); // Store Prisma instance in context
-    c.set('envVariable',envVariable);
+    c.set('prisma', prisma); 
+    c.set('envVariable', envVariable);
 
-    await next(); // Continue to the next middleware or route
+    await next(); 
 };
 
 export default prismaMiddleware;

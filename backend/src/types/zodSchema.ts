@@ -19,16 +19,16 @@ export type loginInputs = zod.infer<typeof loginSchema>;
 export const createBlogSchema = zod.object({
     title : zod.string(),
     content : zod.string(),
-    published : zod.string()
+    published : zod.boolean()
 })
 
 export type createBlogInputs = zod.infer<typeof createBlogSchema>;
 
 export const updateBlogSchema = zod.object({
-    id: zod.string().uuid(),
+    id: zod.number(),
     title : zod.string(),
     content : zod.string(),
-    published : zod.string()
+    published : zod.boolean()
 })
 
 export type updateBlogInputs = zod.infer<typeof updateBlogSchema>;

@@ -8,16 +8,19 @@ export const createBlog = async (c: Context) => {
     try {
         const prisma = c.get('prisma') as PrismaClient;
         // const envVariable = c.get('envVariables') as EnvVariables;
+        const userId : number = c.get('userId');
 
         const body: createBlogInputs = await c.req.json();
-        const userId = c.req.userId;
+        if (isNaN(userId)) {
+            return sendResponse(c, 400, false, "Invalid user ID");
+        }
 
         const parsedPayload = createBlogSchema.safeParse(body);
         if (!parsedPayload.success) {
             return sendResponse(c, 400, false, JSON.stringify(parsedPayload.error.format()));
         }
 
-        const blogPost = await prisma.post.create({
+        const blogPost = await prisma.blog.create({
             data: {
                 title: body.title,
                 content: body.content,
@@ -46,13 +49,13 @@ export const updateBlog = async (c: Context) => {
         //Update That with the New Values
         //Return Success
         const { id, title, content, published } = parsedPayload.data;
-        const existingBlog = await prisma.post.findUnique({
+        const existingBlog = await prisma.blog.findUnique({
             where: { id: id }
         });
         if (!existingBlog) {
             return sendResponse(c, 404, false, "Blog Not Found!");
         }
-        const updatedBlog = await prisma.post.update({
+        const updatedBlog = await prisma.blog.update({
             where: { id: id },
             data: { title, content, published }
         });
@@ -67,9 +70,9 @@ export const getBlogs = async (c: Context) => {
         //Take the blog ID from the query pareameter 
         //Find that in DB
         //Return Success with the Blog in data
-        const blogId: string = c.req.query('id') as string;
-        const blog = await prisma.post.findUnique({
-            where: { id: blogId }
+        const blogId = c.req.query('id');
+        const blog = await prisma.blog.findUnique({
+            where: { id: parseInt(blogId as string, 10) }
         });
         if (!blog) {
             return sendResponse(c, 404, false, "Blog Not Found!");
@@ -79,3 +82,14 @@ export const getBlogs = async (c: Context) => {
         return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
     }
 };
+
+
+export const getAllBlogs = async function(c: Context) {
+    try {
+        const prisma = c.get('prisma') as PrismaClient;
+        const blogs = await prisma.blog.findMany();
+        sendResponse(c,201,true,"All Blogs Fetched Successfully", blogs );
+    } catch (error: any) {
+        return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
+    }
+}

@@ -14,8 +14,8 @@ app.use('*', prismaMiddleware);
 
 app.use('/api/v1/blog/*',authMiddleware);
 
-app.route('/api/v1', authRoutes)
-app.route('/api/v1/blog', blogRoutes)
+app.route('/api/v1', authRoutes);
+app.route('/api/v1/blog', blogRoutes);
 
 app.get('/', (c) => c.text('Welcome to the main page!'))
 

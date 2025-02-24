@@ -1,6 +1,6 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client";
-import { genarateJwt } from "../utils/JWT_Tokens";
+import { generateJwt } from "../utils/JWT_Tokens";
 import { EnvVariables } from "../types/envTypes";
 import { UserDBInput } from "../types/userTypes";
 import { hashPassword, verifyHashedPassword } from "../utils/passwordHashing";
@@ -38,7 +38,7 @@ export const signup = async (c: Context) => {
             },
         });
 
-        const token = await genarateJwt(user.id, envVariable.JWT_SECRET);
+        const token = await generateJwt(user.id, envVariable.JWT_SECRET);
 
         return sendResponse(c, 201, true, "Signup Successfull", token);
 
@@ -75,7 +75,7 @@ export const login = async (c: Context) => {
             return sendResponse(c, 400, false, "Invalid Password");
         }
 
-        const token = await genarateJwt(user.id, envVariable.JWT_SECRET);
+        const token = await generateJwt(user.id, envVariable.JWT_SECRET);
 
         return sendResponse(c, 201, true, "Login Successfull", { token });
     } catch (error : any) {
