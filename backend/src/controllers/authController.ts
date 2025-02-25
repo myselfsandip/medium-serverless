@@ -12,7 +12,7 @@ export const signup = async (c: Context) => {
         const prisma = c.get("prisma") as PrismaClient;
         const envVariable = c.get("envVariable") as EnvVariables;
 
-        const body : signUpInputs = await c.req.json();
+        const body: signUpInputs = await c.req.json();
 
         const parsedPayload = signUpSchema.safeParse(body);
 
@@ -40,7 +40,7 @@ export const signup = async (c: Context) => {
 
         const token = await generateJwt(user.id, envVariable.JWT_SECRET);
 
-        return sendResponse(c, 201, true, "Signup Successfull", token);
+        return sendResponse(c, 201, true, "Signup Successfull", { token });
 
     } catch (error: any) {
         return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
@@ -52,7 +52,7 @@ export const login = async (c: Context) => {
         const prisma = c.get("prisma") as PrismaClient;
         const envVariable = c.get("envVariable") as EnvVariables;
 
-        const body : loginInputs = await c.req.json();
+        const body: loginInputs = await c.req.json();
 
         const parsedPayload = loginSchema.safeParse(body);
 
@@ -78,8 +78,8 @@ export const login = async (c: Context) => {
         const token = await generateJwt(user.id, envVariable.JWT_SECRET);
 
         return sendResponse(c, 201, true, "Login Successfull", { token });
-    } catch (error : any) {
-        return sendResponse(c,error.status ?? 500 , false , error.message ?? "Internal Server Error");
+    } catch (error: any) {
+        return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
     }
 
 

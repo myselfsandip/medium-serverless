@@ -1,14 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { Context } from "hono";
-import { EnvVariables } from "../types/envTypes";
 import { createBlogInputs, createBlogSchema, updateBlogInputs, updateBlogSchema } from "../types/zodSchema";
 import sendResponse from "../utils/sendResponse";
 
 export const createBlog = async (c: Context) => {
     try {
         const prisma = c.get('prisma') as PrismaClient;
-        // const envVariable = c.get('envVariables') as EnvVariables;
-        const userId : number = c.get('userId');
+        const userId: number = c.get('userId');
 
         const body: createBlogInputs = await c.req.json();
         if (isNaN(userId)) {
@@ -45,9 +43,7 @@ export const updateBlog = async (c: Context) => {
         if (!parsedPayload.success) {
             return sendResponse(c, 400, false, JSON.stringify(parsedPayload.error.format()));
         }
-        //Get the Blog ID & Find that in DB
-        //Update That with the New Values
-        //Return Success
+
         const { id, title, content, published } = parsedPayload.data;
         const existingBlog = await prisma.blog.findUnique({
             where: { id: id }
@@ -64,12 +60,10 @@ export const updateBlog = async (c: Context) => {
         return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
     }
 };
+
 export const getBlogs = async (c: Context) => {
     try {
         const prisma = c.get('prisma') as PrismaClient;
-        //Take the blog ID from the query pareameter 
-        //Find that in DB
-        //Return Success with the Blog in data
         const blogId = c.req.query('id');
         const blog = await prisma.blog.findUnique({
             where: { id: parseInt(blogId as string, 10) }
@@ -83,13 +77,12 @@ export const getBlogs = async (c: Context) => {
     }
 };
 
-
-export const getAllBlogs = async function(c: Context) {
+export const getAllBlogs = async (c: Context) => {
     try {
         const prisma = c.get('prisma') as PrismaClient;
         const blogs = await prisma.blog.findMany();
-        sendResponse(c,201,true,"All Blogs Fetched Successfully", blogs );
+        return sendResponse(c, 201, true, "All Blogs Fetched Successfully", blogs);
     } catch (error: any) {
         return sendResponse(c, error.status ?? 500, false, error.message ?? "Internal Server Error");
     }
-}
+};
