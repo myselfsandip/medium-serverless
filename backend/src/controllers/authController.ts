@@ -5,7 +5,7 @@ import { EnvVariables } from "../types/envTypes";
 import { UserDBInput } from "../types/userTypes";
 import { hashPassword, verifyHashedPassword } from "../utils/passwordHashing";
 import sendResponse from "../utils/sendResponse";
-import { signUpSchema, loginSchema, signUpInputs, loginInputs } from "../types/zodSchema";
+import { signUpSchema, loginSchema, signUpInputs, loginInputs } from "@myselfsandip07/medium-common";
 
 export const signup = async (c: Context) => {
     try {

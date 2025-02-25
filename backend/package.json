@@ -5,11 +5,11 @@
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
+    "@myselfsandip07/medium-common": "^1.0.0",
     "@prisma/client": "6.3.1",
     "@prisma/extension-accelerate": "^1.2.1",
     "bcryptjs": "^2.4.3",
-    "hono": "^4.6.20",
-    "zod": "^3.24.1"
+    "hono": "^4.6.20"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",

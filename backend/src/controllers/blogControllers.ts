@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Context } from "hono";
-import { createBlogInputs, createBlogSchema, updateBlogInputs, updateBlogSchema } from "../types/zodSchema";
+import { createBlogInputs, createBlogSchema, updateBlogInputs, updateBlogSchema } from "@myselfsandip07/medium-common";
 import sendResponse from "../utils/sendResponse";
 
 export const createBlog = async (c: Context) => {

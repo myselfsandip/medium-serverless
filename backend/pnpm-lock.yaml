@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@myselfsandip07/medium-common':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@prisma/client':
         specifier: 6.3.1
         version: 6.3.1(prisma@6.3.1)
@@ -20,9 +23,6 @@ importers:
       hono:
         specifier: ^4.6.20
         version: 4.6.20
-      zod:
-        specifier: ^3.24.1
-        version: 3.24.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250204.0
@@ -235,6 +235,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@myselfsandip07/medium-common@1.0.0':
+    resolution: {integrity: sha512-x9DcrkE5KnsXdW0QQgZvV4neouF7Rm/ezViItYA5KGDuABu5Ex3JLjbMq0KSVTnStJbFs8xA+Hl3Aep5Mrl0iw==}
 
   '@prisma/client@6.3.1':
     resolution: {integrity: sha512-ARAJaPs+eBkemdky/XU3cvGRl+mIPHCN2lCXsl5Vlb0E2gV+R6IN7aCI8CisRGszEZondwIsW9Iz8EJkTdykyA==}
@@ -450,6 +453,9 @@ packages:
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+
 snapshots:
 
   '@cloudflare/kv-asset-handler@0.3.4':
@@ -563,6 +569,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@myselfsandip07/medium-common@1.0.0':
+    dependencies:
+      zod: 3.24.2
 
   '@prisma/client@6.3.1(prisma@6.3.1)':
     optionalDependencies:
@@ -788,3 +798,5 @@ snapshots:
       stacktracey: 2.1.8
 
   zod@3.24.1: {}
+
+  zod@3.24.2: {}
